@@ -1,10 +1,10 @@
 const { model, Schema } = require('mongoose')
 
-const projectSchema = new Schema(
+const voiceActorSchema = new Schema(
     {
         title: String,
         description: String,
-        tasks: [ { type: Schema.Types.ObjectId, ref: 'Task' } ]
+        animes: [ { type: Schema.Types.ObjectId, ref: 'Anime' } ]
     },
     {
         timestamps: true,
@@ -12,4 +12,4 @@ const projectSchema = new Schema(
     }
 )
 
-module.exports = model("Project", projectSchema)
+module.exports = model("Task", voiceActorSchema)

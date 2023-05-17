@@ -1,0 +1,103 @@
+toDo:
+1.	Rename variable names
+2.	Create a Character model
+    a.	Picture
+    b.	Name
+    c.	Anime
+    d.	Voiced by
+    e.	addedBy
+    f.	createdBy
+3.	Add fields to animes
+    a.	Picture
+    b.	Title
+    c.	Rating
+    d.	Genre
+    e.	Description
+    f.	mainCharacter
+    i.	make a create character component and have it be inline during the anime creation
+    g.	voiceActor (limit to 1, only MC)
+    h.	addedBy
+    i.	ratedBy (not displayed, just stored to prevent users from re-rating)
+    j.	comments
+4.	Add fields to user
+    a.	Profile picture
+    b.	Username
+    c.	email
+    d.	Favorites array of animes (limit to 5? Or 10?)
+    e.	Favorite voice actor (single voice actor)
+    f.	Favorite genre (drop down selection?)
+5.	Add fields to voice actor
+    a.	Name
+    b.	Rating
+    c.	Country of origin
+    d.	Animes (array of animes they’re involved in)
+    e.	addedBy
+    f.	comments
+6.	Npm install
+7.	Npm install dotenv
+8.	Port for backend: 3000
+9.	Port for frontend: 4000
+10.	Mongodb_URI (copy from other project and change database name from “anime” or “animes” to something else (anime-database)
+11.	Add a “secret” variable
+12.	Run the website
+13.	Check connection to Atlas
+14.	Add CREATE functionality
+    a.	For Anime
+    b.	For Voice Actor (have them be able to select the anime from the array of animes on the site)
+    c.	For character
+15.	Add a “voice actor” component
+    a.	Display voice actor’s info, added by:user, and the first 3 anime in their anime array
+    b.	Wrap the animes in links so that they are clickable links that direct you to the anime details page
+16.	Create a “character details” page
+17.	Create a “all voice actors” page
+18.	Create a “voice actor details” page
+    a.	Display the voice actors information, and the top 3 rated animes they worked on
+19.	Add a “anime details” display
+    a.	Change up projectdetailspage
+    b.	Display the anime’s information, then underneath it, the main voice actor
+    c.	Wrap the main voice actor in a link that links them to the voice actor detail page
+20.	Add EDIT functionality
+    a.	For animes
+    b.	For voice actors
+    c.	For users
+21.	Add a user profile page on front end
+22.	Add user profile page to backend routes
+23.	Add DELETE functionality
+    a.	For animes
+    b.	For voice actors
+    c.	For users
+24.	Add FAVORITE functionality
+    a.	User can add animes to their favorites
+25.	Add RATING functionality
+    a.	User can rate the anime with a number input
+    b.	User can only rate once
+26.	Add Comments
+    a.	Comments on Anime
+    b.	Comments on Voice Actor
+27.	Add a sort function to the animes display page
+28.	Add a search function to the animes display page
+29.	Add a search function to the “all voice actors” page
+30.	Add a sort function to the “all voice actors” page
+31.	Add 1 user to the website using the signup page
+32.	Update middleware so that the user is only able to edit the anime(s) he’s contributed
+33.	Update middleware so that the user is only able to rate once
+34.	Update middleware so that only authenticated users can comment
+35.	Update middleware so that only the user that created the anime can delete it
+36.	Update middleware so that only the user that created the voiceactor can delete it
+37.	Add 10 animes to the database with pictures
+    a.	Make sure to add the MCs to the anime and voiceactor
+38.	Test favoriting function
+39.	Test rating function
+40.	Test editing anime function
+41.	Test delete anime function
+42.	Create a second user
+43.	Test all the middleware
+44.	Logout
+45.	Test all the middleware (make certain pages private, but let the “all animes” page be public)
+46.	Add a background picture to the homepage
+47.	Add anime quotes to the homepage
+48.	Add “highest rated anime” to the homepage
+49.	Homepage navbar
+    a.	Signup, login, all animes, all voice actors should be publicly available
+    b.	Once logged in, all animes, all voice actors, create anime, create voice actor, create character should be available
+50.	Style the hell out of the website
