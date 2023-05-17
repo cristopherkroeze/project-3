@@ -1,38 +1,29 @@
 toDo:
-1.	Rename variable names
-2.	Create a Character model
-    a.	Picture
-    b.	Name
-    c.	Anime
-    d.	Voiced by
-    e.	addedBy
-    f.	createdBy
-3.	Add fields to animes
-    a.	Picture
-    b.	Title
-    c.	Rating
-    d.	Genre
-    e.	Description
-    f.	mainCharacter
-    i.	make a create character component and have it be inline during the anime creation
-    g.	voiceActor (limit to 1, only MC)
-    h.	addedBy
-    i.	ratedBy (not displayed, just stored to prevent users from re-rating)
-    j.	comments
-4.	Add fields to user
-    a.	Profile picture
-    b.	Username
-    c.	email
-    d.	Favorites array of animes (limit to 5? Or 10?)
-    e.	Favorite voice actor (single voice actor)
-    f.	Favorite genre (drop down selection?)
-5.	Add fields to voice actor
-    a.	Name
-    b.	Rating
-    c.	Country of origin
-    d.	Animes (array of animes they’re involved in)
-    e.	addedBy
-    f.	comments
+0. Transfer code from project pages to anime pages
+1. populate pages with basic things
+    d. allAnimesPage
+    e. animeDetailsPage
+    f. editAnimePage
+    g. characterPage
+    h. voiceActorDetailsPage
+    i. allVoiceActorsPage
+    j. createAnAnimePage
+    k. createACharacterPage
+    l. createAVoiceActorPage
+2. Refactor code to new models
+3. add Routes
+    a. Characters
+    b. Voice actors
+    c. Comments
+4. Create Components
+    a. AddAnime
+    b. AddCharacter
+    c. Add VoiceActor
+    d. AnimeCard
+    e. CharacterCard
+    f. VoiceActorCard
+    g. UserCard
+    h. CommentCard
 6.	Npm install
 7.	Npm install dotenv
 8.	Port for backend: 3000

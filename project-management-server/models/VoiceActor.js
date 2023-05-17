@@ -2,9 +2,20 @@ const { model, Schema } = require('mongoose')
 
 const voiceActorSchema = new Schema(
     {
-        title: String,
-        description: String,
-        animes: [ { type: Schema.Types.ObjectId, ref: 'Anime' } ]
+        name : { 
+            type: String,
+            required: true  
+            },
+        rating: { 
+            type: Number  
+            },
+        country: { 
+            type: String
+            },
+        animes: [ { type: Schema.Types.ObjectId, ref: "Anime"} ],
+        addedBy: { type: Schema.Types.ObjectId, ref: "User"},
+        ratedBy: [ { type: Schema.Types.ObjectId, ref: "User"} ],
+        comments: {type: Schema.Types.ObjectId, ref: "Comment"}
     },
     {
         timestamps: true,
@@ -12,4 +23,4 @@ const voiceActorSchema = new Schema(
     }
 )
 
-module.exports = model("Task", voiceActorSchema)
+module.exports = model("VoiceActor", voiceActorSchema)
