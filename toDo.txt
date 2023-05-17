@@ -11,6 +11,8 @@ Create a user using postman and add to the users database(
     role: "Administrator"
 )
 
+https://www.npmjs.com/package/react-simple-star-rating
+
 later on, add isAdmin check in the authMiddleware which overrides all middleware and allows the admin to edit anything and delete anything
 
 0. add the 5 voice actors to the database
@@ -107,8 +109,7 @@ for addAnime, addCharacter, addVoiceActor, and the edit components]
 34.	Update middleware so that only authenticated users can comment
 35.	Update middleware so that only the user that created the anime can delete it
 36.	Update middleware so that only the user that created the voiceactor can delete it
-37.	Add 10 animes to the database with pictures
-    a.	Make sure to add the MCs to the anime and voiceactor
+
 38.	Test favoriting function
 39.	Test rating function
 40.	Test editing anime function

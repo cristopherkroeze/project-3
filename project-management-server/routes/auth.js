@@ -36,18 +36,21 @@ router.post("/signup", (req, res, next) => {
         return;
       }
 
-      User.findOne({ userName }).then((foundUser) => {
-        if (foundUser) {
-          res.status(400).json({ message: "Username is taken" });
-          return;
-        }
-      });
+      return User.findOne({ userName })
+  })
+      .then((foundUser) => {
 
-      const salt = bcrypt.genSaltSync(saltRounds);
-      const hashedPassword = bcrypt.hashSync(password, salt);
+          if (foundUser) {
+              res.status(400).json({ message: "Username is taken" });
+              return;
+            }
 
-      return User.create({ email, userName, password: hashedPassword, name });
-    })
+          const salt = bcrypt.genSaltSync(saltRounds);
+          const hashedPassword = bcrypt.hashSync(password, salt);
+    
+          return User.create({ email, userName, password: hashedPassword, name });
+      })
+
     .then((createdUser) => {
       const { email, userName, name, _id } = createdUser;
 
