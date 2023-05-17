@@ -3,12 +3,16 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
-var cors = require('cors')
+var cors = require('cors');
 
-var usersRouter = require('./routes/users');
-var projectsRouter = require('./routes/projects');
-var tasksRouter = require('./routes/tasks');
+
+
+var animesRouter = require('./routes/animes');
 var authRouter = require('./routes/auth');
+var charactersRouter = require('./routes/characters');
+var commentsRouter = require('./routes/comments');
+var usersRouter = require('./routes/users');
+var voiceActorsRouter = require('./routes/voiceActors');
 
 var app = express();
 
@@ -23,18 +27,18 @@ app.enable('trust proxy');
 
 app.use(
     cors({
-      origin: ['http://localhost:3000']  // <== URL of our future React app
+      origin: ['http://localhost:3000']
     })
   );
   
-// app.use(
-//     cors()
-//   );
 
-app.use('/users', usersRouter);
-app.use('/projects', projectsRouter);
-app.use('/tasks', tasksRouter);
+app.use('/animes', animesRouter);
 app.use('/auth', authRouter);
+app.use('/characters', charactersRouter);
+app.use('/comments', commentsRouter);
+app.use('/users', usersRouter);
+app.use('/voiceActorsRouter', voiceActorsRouter);
+
 
 mongoose
   .connect(process.env.MONGODB_URI)

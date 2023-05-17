@@ -12,16 +12,9 @@ const characterSchema = new Schema(
             unique: true, 
             required: true 
             },
-        anime: { 
-            type: String 
-            },
-        voicedBy: { 
-            type: { type: Schema.Types.ObjectId, ref: "VoiceActor"}
-            },
-        createdBy: { 
-            type: { type: Schema.Types.ObjectId, ref: "User"},
-            required: true 
-            }
+        anime: { type: Schema.Types.ObjectId, ref: "Animes", default: null},
+        voicedBy: { type: Schema.Types.ObjectId, ref: "VoiceActor", default: null},
+        createdBy: { type: Schema.Types.ObjectId, ref: "User", default: null}
     },
     {
         timeseries: true,

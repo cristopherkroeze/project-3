@@ -23,9 +23,9 @@ const animeSchema = new Schema(
             type: String, 
             required: true 
             },
-        mainCharacter : {type: Schema.Types.ObjectId, ref: "Character}"},
-        voiceActor : { type: Schema.Types.ObjectId, ref: 'VoiceActor' },
-        addedBy : { type: Schema.Types.ObjectId, ref: "User"},
+        mainCharacter : {type: Schema.Types.ObjectId, ref: "Character}", default: null},
+        voiceActor : { type: Schema.Types.ObjectId, ref: 'VoiceActor', default: null },
+        addedBy : { type: Schema.Types.ObjectId, ref: "User", default: null},
         ratedBy: [ { type: Schema.Types.ObjectId, ref: "User"} ],
         comments: [ { type: Schema.Types.ObjectId, ref: "Comment"} ]
     },

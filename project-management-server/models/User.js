@@ -3,7 +3,8 @@ const { Schema, model } = require("mongoose");
 const userSchema = new Schema(
     {
         img : { 
-            type: String  
+            type: String,
+            default: "https://i.pinimg.com/736x/99/fd/e6/99fde65b336d554e117883d1aa76f0f0.jpg"  
             },
         email: { 
             type: String, 
@@ -24,10 +25,14 @@ const userSchema = new Schema(
             required: true 
             },
         favoriteAnimes: [ { type: Schema.Types.ObjectId, ref: "Animes"} ],
-        favoriteVoiceActor: { type: Schema.Types.ObjectId, ref: "VoiceActor"},
+        favoriteVoiceActor: { type: Schema.Types.ObjectId, ref: "VoiceActor", default: null},
         favoriteGenre: { 
             type: String  
-            }
+            },
+        role: {
+            type: String,
+            default: "User"
+        }
     },
     {
         timeseries: true,

@@ -11,7 +11,7 @@ const commentSchema = new Schema(
             type: String, 
             required: true 
             },
-        addedBy : { type: Schema.Types.ObjectId, ref: "User"}
+        addedBy : { type: Schema.Types.ObjectId, ref: "User", default: null}
     },
     {
         timeseries: true,

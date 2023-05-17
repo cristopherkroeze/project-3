@@ -13,9 +13,9 @@ const voiceActorSchema = new Schema(
             type: String
             },
         animes: [ { type: Schema.Types.ObjectId, ref: "Anime"} ],
-        addedBy: { type: Schema.Types.ObjectId, ref: "User"},
+        addedBy: { type: Schema.Types.ObjectId, ref: "User", default: null},
         ratedBy: [ { type: Schema.Types.ObjectId, ref: "User"} ],
-        comments: {type: Schema.Types.ObjectId, ref: "Comment"}
+        comments: [{type: Schema.Types.ObjectId, ref: "Comment"}]
     },
     {
         timestamps: true,

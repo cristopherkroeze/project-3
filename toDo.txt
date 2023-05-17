@@ -1,5 +1,35 @@
 toDo:
-0. Transfer code from project pages to anime pages
+
+Create a user using postman and add to the users database(
+    email: cris.kroeze@gmail.com
+    userName: Slagernicus
+    password: Brazil420
+    name: Cris kroeze
+    favoriteAnimes: []
+    favoriteVoiceActor: null
+    favoriteGenre: "Action"
+    role: "Administrator"
+)
+
+later on, add isAdmin check in the authMiddleware which overrides all middleware and allows the admin to edit anything and delete anything
+
+0. add the 5 voice actors to the database
+    a. add the 5 characters to the database
+    b. add the 5 animes to the database
+    c. use the object IDs of the voice actors to add them to the characters
+    d. use the object IDs of the animes to add them to the characters
+    e. use the object IDs of the characters to add them to the voice actors
+    f. use the object IDs of the animes to add them to the voice actors
+    g. use the object IDs of the voice actors to add them to the Animes
+    h. use the object IDs of the characters to add them to the Animes
+0. add 5 animes to the database
+    a. add the 5 main characters of the anime
+    b. add the 5 voice actors of the anime
+    c. Death Note, One Piece, Bleach, Naruto, HunterxHunter
+
+change the code in the pages from projects to animes and populate them
+with the components even though the components are currently empty
+
 1. populate pages with basic things
     d. allAnimesPage
     e. animeDetailsPage
@@ -10,32 +40,31 @@ toDo:
     j. createAnAnimePage
     k. createACharacterPage
     l. createAVoiceActorPage
-2. Refactor code to new models
-3. add Routes
-    a. Characters
-    b. Voice actors
-    c. Comments
+
+2. basic styling of home page 
+    a. add background picture to homepage
+    b. add h1 welcome message
+    c. add 3 anime quotes
+
+3. look up anime genres and add an array full of the genres to a file (you will import the data into the other files)
+    a. this will allow you to use a selector for genre
+
 4. Create Components
-    a. AddAnime
-    b. AddCharacter
-    c. Add VoiceActor
-    d. AnimeCard
-    e. CharacterCard
-    f. VoiceActorCard
-    g. UserCard
-    h. CommentCard
-6.	Npm install
-7.	Npm install dotenv
-8.	Port for backend: 3000
-9.	Port for frontend: 4000
-10.	Mongodb_URI (copy from other project and change database name from “anime” or “animes” to something else (anime-database)
-11.	Add a “secret” variable
+[use this https://react-bootstrap.github.io/components/cards/
+to create the components (character card voice actor card,etc)]
+ 
+
 12.	Run the website
 13.	Check connection to Atlas
 14.	Add CREATE functionality
+[use this when restructuring your forms https://legacy.reactjs.org/docs/forms.html
+for addAnime, addCharacter, addVoiceActor, and the edit components]
+
     a.	For Anime
     b.	For Voice Actor (have them be able to select the anime from the array of animes on the site)
     c.	For character
+    d. RIP code for cloudinary from project 2 create anime form
+    e. add cloudinary secret/url/etc to .env
 15.	Add a “voice actor” component
     a.	Display voice actor’s info, added by:user, and the first 3 anime in their anime array
     b.	Wrap the animes in links so that they are clickable links that direct you to the anime details page
@@ -48,6 +77,9 @@ toDo:
     b.	Display the anime’s information, then underneath it, the main voice actor
     c.	Wrap the main voice actor in a link that links them to the voice actor detail page
 20.	Add EDIT functionality
+[use this when restructuring your forms https://legacy.reactjs.org/docs/forms.html
+for addAnime, addCharacter, addVoiceActor, and the edit components]
+
     a.	For animes
     b.	For voice actors
     c.	For users
