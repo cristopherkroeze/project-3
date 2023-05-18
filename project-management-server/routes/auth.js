@@ -52,9 +52,9 @@ router.post("/signup", (req, res, next) => {
       })
 
     .then((createdUser) => {
-      const { email, userName, name, _id } = createdUser;
+      const { img, role, email, userName, name, _id } = createdUser;
 
-      const user = { email, userName, name, _id };
+      const user = { img, role, email, userName, name, _id };
 
       res.status(201).json(user);
     })
@@ -82,9 +82,9 @@ router.post("/login", (req, res, next) => {
       const passwordCorrect = bcrypt.compareSync(password, foundUser.password);
 
       if (passwordCorrect) {
-        const { _id, userName, name } = foundUser;
+        const { _id, userName, name, img, email, role } = foundUser;
 
-        const payload = { _id, userName, name };
+        const payload = { _id, userName, name, img, email, role };
 
         const authToken = jwt.sign(payload, process.env.SECRET, {
           algorithm: "HS256",

@@ -5,7 +5,6 @@ const characterSchema = new Schema(
         img: { 
             type: String, 
             unique: true, 
-            required: true 
             },
         name: { 
             type: String, 

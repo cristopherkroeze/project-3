@@ -10,34 +10,39 @@ import { get, post } from "../services/authService";
 const API_URL = "http://localhost:4000";
 
 
-function ProjectListPage() {
-  const [projects, setProjects] = useState([]);
+function AllAnimesPage() {
+  const [animes, setAnimes] = useState([]);
 
-  const getAllProjects = () => {
+  const getAllAnimes = () => {
 
     const storedToken = localStorage.getItem("authToken");
 
-    get('/projects')
+    get('/animes')
 
-      .then((response) => setProjects(response.data))
+      .then((response) => {
+        setAnimes(response.data)
+        console.log(response.data)
+        console.log("animes:", animes)
+      })
+      
       .catch((error) => console.log(error));
   };
 
   // We set this effect will run only once, after the initial render
   // by setting the empty dependency array - []
   useEffect(() => {
-    getAllProjects();
+    getAllAnimes();
   }, [] );
 
   
   return (
-    <div className="ProjectListPage">
+    <div className="AllAnimesPage">
 
-        <AddAnime refreshProjects={getAllProjects} />
+        {/* <AddAnime refreshAnimes={getAllAnimes} /> */}
       
-        {projects.map((project) => {
+        {animes.map((element) => {
           return (
-            <AnimeCard key={project._id} {...project} />
+            <AnimeCard key={element._id} {...element} />
           );
         })}     
        
@@ -45,4 +50,4 @@ function ProjectListPage() {
   );
 }
 
-export default ProjectListPage;
+export default AllAnimesPage;

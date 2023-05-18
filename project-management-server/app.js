@@ -37,7 +37,7 @@ app.use('/auth', authRouter);
 app.use('/characters', charactersRouter);
 app.use('/comments', commentsRouter);
 app.use('/users', usersRouter);
-app.use('/voiceActorsRouter', voiceActorsRouter);
+app.use('/voiceActors', voiceActorsRouter);
 
 
 mongoose

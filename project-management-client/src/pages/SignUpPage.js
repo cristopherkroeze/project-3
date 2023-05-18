@@ -9,6 +9,7 @@ const API_URL = "http://localhost:4000";
 
 function SignupPage() {
   const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
@@ -16,6 +17,7 @@ function SignupPage() {
   const navigate = useNavigate();
   
   const handleEmail = (e) => setEmail(e.target.value);
+  const handleUserName = (e) => setUserName(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
   const handleName = (e) => setName(e.target.value);
 
@@ -23,7 +25,7 @@ function SignupPage() {
   const handleSignupSubmit = (e) => {
     e.preventDefault();
     // Create an object representing the request body
-    const requestBody = { email, password, name };
+    const requestBody = { email, userName, password, name };
  
     // Make an axios request to the API
     // If the POST request is a successful redirect to the login page
@@ -46,15 +48,13 @@ function SignupPage() {
 
       <form onSubmit={handleSignupSubmit}>
         <label>Email:</label>
-        <input 
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleEmail}
-        />
+        <input type="email" name="email" value={email} onChange={handleEmail} />
+
+        <label>Username:</label>
+        <input type="username" name="username" value={userName} onChange={handleUserName} />
 
         <label>Password:</label>
-        <input 
+        <input
           type="password"
           name="password"
           value={password}
@@ -62,22 +62,17 @@ function SignupPage() {
         />
 
         <label>Name:</label>
-        <input 
-          type="text"
-          name="name"
-          value={name}
-          onChange={handleName}
-        />
+        <input type="text" name="name" value={name} onChange={handleName} />
 
         <button type="submit">Sign Up</button>
       </form>
 
-      { errorMessage && <p className="error-message">{errorMessage}</p> }
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <p>Already have account?</p>
       <Link to={"/login"}> Login</Link>
     </div>
-  )
+  );
 }
 
 export default SignupPage;

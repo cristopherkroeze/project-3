@@ -1,36 +1,27 @@
 toDo:
 
-Create a user using postman and add to the users database(
-    email: cris.kroeze@gmail.com
-    userName: Slagernicus
-    password: Brazil420
-    name: Cris kroeze
-    favoriteAnimes: []
-    favoriteVoiceActor: null
-    favoriteGenre: "Action"
-    role: "Administrator"
-)
-
 https://www.npmjs.com/package/react-simple-star-rating
 
 later on, add isAdmin check in the authMiddleware which overrides all middleware and allows the admin to edit anything and delete anything
 
-0. add the 5 voice actors to the database
-    a. add the 5 characters to the database
-    b. add the 5 animes to the database
-    c. use the object IDs of the voice actors to add them to the characters
-    d. use the object IDs of the animes to add them to the characters
-    e. use the object IDs of the characters to add them to the voice actors
-    f. use the object IDs of the animes to add them to the voice actors
-    g. use the object IDs of the voice actors to add them to the Animes
-    h. use the object IDs of the characters to add them to the Animes
-0. add 5 animes to the database
-    a. add the 5 main characters of the anime
-    b. add the 5 voice actors of the anime
-    c. Death Note, One Piece, Bleach, Naruto, HunterxHunter
+in animes.js routes ask about the chained.populate and why it only works with one populate, not multiple
 
-change the code in the pages from projects to animes and populate them
+0. work on "add animes" component and make it functional
+    -add a selector for main character/voice actor (not a required field)
+1. work on "add character" component
+    -add a selector for voice actor/anime (not required field)
+2. work on "add voice actor" component
+    -add a checklist for animes theyve been in
+
+OPTIONAL: make it so that when someone creates an anime it immediately navigates them to the create character field, then adds that character to the anime, and navigates them to the create voice actor page and that voice actor is added to the anime/main character
+    -make both the character creation step and voice actor creation step optional with a "skip" button
+
+2. change the code in the pages from projects to animes and populate them
 with the components even though the components are currently empty
+3. fill out the "card" components
+4. Create Components
+[use this https://react-bootstrap.github.io/components/cards/
+to create the components (character card voice actor card,etc)]
 
 1. populate pages with basic things
     d. allAnimesPage
@@ -43,17 +34,9 @@ with the components even though the components are currently empty
     k. createACharacterPage
     l. createAVoiceActorPage
 
-2. basic styling of home page 
-    a. add background picture to homepage
-    b. add h1 welcome message
-    c. add 3 anime quotes
 
-3. look up anime genres and add an array full of the genres to a file (you will import the data into the other files)
-    a. this will allow you to use a selector for genre
 
-4. Create Components
-[use this https://react-bootstrap.github.io/components/cards/
-to create the components (character card voice actor card,etc)]
+
  
 
 12.	Run the website
@@ -85,8 +68,7 @@ for addAnime, addCharacter, addVoiceActor, and the edit components]
     a.	For animes
     b.	For voice actors
     c.	For users
-21.	Add a user profile page on front end
-22.	Add user profile page to backend routes
+
 23.	Add DELETE functionality
     a.	For animes
     b.	For voice actors

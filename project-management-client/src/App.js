@@ -1,21 +1,23 @@
 
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import { Routes, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
-import ProjectListPage from './pages/ProjectListPage';
-import ProjectDetailsPage from './pages/ProjectDetailsPage';
-import EditProjectPage from './pages/EditProjectPage';
+import AllAnimesPage from './pages/AllAnimesPage.js';
+import AnimeDetailsPage from './pages/AnimeDetailsPage.js'
+import EditAnimePage from './pages/EditAnimePage';
 import SignupPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
+import UserProfilePage from './pages/UserProfilePage';
 
 import IsPrivate from './components/IsPrivate';
 import IsAnon from './components/IsAnon';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" >
 
       <Navbar />
 
@@ -25,23 +27,23 @@ function App() {
 
 
         <Route
-          path="/projects"
-          element={ <IsPrivate> <ProjectListPage /> </IsPrivate> } 
+          path="/animes"
+          element={ <AllAnimesPage /> } 
         />
  
         <Route
-          path="/projects/:projectId"
-          element={ <IsPrivate> <ProjectDetailsPage /> </IsPrivate> }
+          path="/animes/:animeId"
+          element={ <AnimeDetailsPage /> }
         />
  
-        <Route
+        {/* <Route
           path="/projects/edit/:projectId"
-          element={ <IsPrivate> <EditProjectPage /> </IsPrivate> } 
-        />
+          element={ <IsPrivate> <EditAnimePage /> </IsPrivate> } 
+        /> */}
         
         <Route path="/signup" element={<IsAnon> <SignupPage /> </IsAnon>} />
         <Route path="/login" element={<IsAnon> <LoginPage /> </IsAnon>} />
-
+        <Route path="/profile" element={<UserProfilePage/>}/>
         
 
       </Routes>

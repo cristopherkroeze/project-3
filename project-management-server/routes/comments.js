@@ -15,7 +15,7 @@ router.get('/', (req, res, next) => {
 router.post("/", (req, res, next) => {
 
     const { title, comment, addedBy } = req.body;
-    Comment.findOne(title)
+    Comment.findOne({title})
     .then((foundComment) => {
      if(foundComment) {
        if (foundComment.comment === comment) {

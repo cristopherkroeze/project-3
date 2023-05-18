@@ -18,7 +18,7 @@ router.post("/", (req, res, next) => {
 
     const { img, name, anime, voicedBy, createdBy } = req.body;
    
-    Character.findOne(title)
+    Character.findOne({name})
          .then((foundCharacter) => {
           if(foundCharacter) {
             res.status(400).json({ message: "Character already exists" });

@@ -9,13 +9,13 @@ const API_URL = "http://localhost:4000";
 
 
 function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
   
   const navigate = useNavigate();
 
-  const handleEmail = (e) => setEmail(e.target.value);
+  const handleUserName = (e) => setUserName(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
 
   const { storeToken, authenticateUser } = useContext(AuthContext)
@@ -23,7 +23,7 @@ function LoginPage() {
   
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    const requestBody = { email, password };
+    const requestBody = { userName, password };
  
     axios.post(`${API_URL}/auth/login`, requestBody)
       .then((response) => {
@@ -34,7 +34,7 @@ function LoginPage() {
 
         authenticateUser()
       
-        navigate('/');                             // <== ADD      
+        navigate('/profile');                           
       })
       .catch((error) => {
         const errorDescription = error.response.data.message;
@@ -47,12 +47,12 @@ function LoginPage() {
       <h1>Login</h1>
 
       <form onSubmit={handleLoginSubmit}>
-        <label>Email:</label>
+        <label>Username:</label>
         <input 
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleEmail}
+          type="userName"
+          name="userName"
+          value={userName}
+          onChange={handleUserName}
         />
 
         <label>Password:</label>

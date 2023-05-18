@@ -19,7 +19,7 @@ router.post("/", (req, res, next) => {
 
     const { name, rating, country, animes, addedBy, ratedBy, comments } = req.body;
    
-    VoiceActor.findOne(title)
+    VoiceActor.findOne({name})
          .then((foundVoiceActor) => {
           if(foundVoiceActor) {
             res.status(400).json({ message: "Voice Actor already exists" });

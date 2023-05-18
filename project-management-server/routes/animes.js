@@ -7,12 +7,15 @@ const Anime = require('../models/Anime');
 
 router.get('/', (req, res, next) => {
     Anime.find()
-      .populate('mainCharacter')
-      .populate('voiceActor')
+      // .populate('mainCharacter')
+      // .populate('voiceActor')
       .populate('addedBy')
-      .populate('ratedBy')
-      .populate('comments')
-      .then(allAnimes => res.json(allAnimes))
+      // .populate('ratedBy')
+      // .populate('comments')
+      .then(allAnimes => {
+        console.log("allAnimes:", allAnimes)
+        res.json(allAnimes)
+      })
       .catch(err => res.json(err));
   });
 
@@ -20,7 +23,7 @@ router.post("/", (req, res, next) => {
 
     const { img, title, rating, genre, description, mainCharacter, voiceActor, addedBy, ratedBy, comments } = req.body;
     
-    Anime.findOne(title)
+    Anime.findOne({title})
          .then((foundAnime) => {
           if(foundAnime) {
             res.status(400).json({ message: "Anime already exists" });
@@ -43,11 +46,11 @@ router.get('/:animeId', (req, res, next) => {
     }
   
     Anime.findById(animeId)
-      .populate('mainCharacter')
-      .populate('voiceActor')
+      // .populate('mainCharacter')
+      // .populate('voiceActor')
       .populate('addedBy')
-      .populate('ratedBy')
-      .populate('comments')
+      // .populate('ratedBy')
+      // .populate('comments')
       .then(anime => res.status(200).json(anime))
       .catch(error => res.json(error));
   });
