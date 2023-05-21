@@ -1,109 +1,48 @@
 toDo:
 
-https://www.npmjs.com/package/react-simple-star-rating
+
 
 later on, add isAdmin check in the authMiddleware which overrides all middleware and allows the admin to edit anything and delete anything
 
-in animes.js routes ask about the chained.populate and why it only works with one populate, not multiple
-
-0. work on "add animes" component and make it functional
-    -add a selector for main character/voice actor (not a required field)
-1. work on "add character" component
-    -add a selector for voice actor/anime (not required field)
-2. work on "add voice actor" component
-    -add a checklist for animes theyve been in
-
-OPTIONAL: make it so that when someone creates an anime it immediately navigates them to the create character field, then adds that character to the anime, and navigates them to the create voice actor page and that voice actor is added to the anime/main character
-    -make both the character creation step and voice actor creation step optional with a "skip" button
-
-2. change the code in the pages from projects to animes and populate them
-with the components even though the components are currently empty
-3. fill out the "card" components
-4. Create Components
-[use this https://react-bootstrap.github.io/components/cards/
-to create the components (character card voice actor card,etc)]
-
-1. populate pages with basic things
-    d. allAnimesPage
-    e. animeDetailsPage
-    f. editAnimePage
-    g. characterPage
-    h. voiceActorDetailsPage
-    i. allVoiceActorsPage
-    j. createAnAnimePage
-    k. createACharacterPage
-    l. createAVoiceActorPage
+QUESTIONS/HELP FOR MONDAY:
+"Genre" doesn't seem to store its value and always resets to Action in the selector
+My "edit user" works; however, the img and name do not update until after you log out and back in
+When I add a comment, it doesn't show up unless I refresh (right now i used window.location.reload(false); as a workaround)
+    -same with deleting
+For some reason the "added by" field continued to be empty even though I'm adding comments the same way im adding animes
+For some reason, favoriteAnimes is not populating on my user profile page (maybe because User itself isnt populated anywhere? I don't have a get route for user which would get the latest user)
 
 
+Chunk 1:
+1. RIP the cloudinary code from project 2 and add it to the "edit" and "create" components
+2. copy the cloudinary code from project 2 so that your img can be uploaded from your computer (this will affect user, anime, and character routes)
+    -add cloudinary secret/url/etc to .env
+3. re-test create and edit functionality
 
 
- 
+Chunk 2:
+1. add the rating functionality with stars using the react-stars-rating module that daniel linked (should be below)
+    -make sure a user can only rate once!!!!!!!
+    -https://www.npmjs.com/package/react-simple-star-rating
+    -you may have to make a route in animes for when people rate, that causes the "ratedBy" array of the anime to fill with users so you can get the average rating
+2. add the highest rated anime to the homepage
+    -will probably need to make a get request to the server for the list of all animes and reduce them with a (a.rating>b.rating) type thing
 
-12.	Run the website
-13.	Check connection to Atlas
-14.	Add CREATE functionality
-[use this when restructuring your forms https://legacy.reactjs.org/docs/forms.html
-for addAnime, addCharacter, addVoiceActor, and the edit components]
 
-    a.	For Anime
-    b.	For Voice Actor (have them be able to select the anime from the array of animes on the site)
-    c.	For character
-    d. RIP code for cloudinary from project 2 create anime form
-    e. add cloudinary secret/url/etc to .env
-15.	Add a “voice actor” component
-    a.	Display voice actor’s info, added by:user, and the first 3 anime in their anime array
-    b.	Wrap the animes in links so that they are clickable links that direct you to the anime details page
-16.	Create a “character details” page
-17.	Create a “all voice actors” page
-18.	Create a “voice actor details” page
-    a.	Display the voice actors information, and the top 3 rated animes they worked on
-19.	Add a “anime details” display
-    a.	Change up projectdetailspage
-    b.	Display the anime’s information, then underneath it, the main voice actor
-    c.	Wrap the main voice actor in a link that links them to the voice actor detail page
-20.	Add EDIT functionality
-[use this when restructuring your forms https://legacy.reactjs.org/docs/forms.html
-for addAnime, addCharacter, addVoiceActor, and the edit components]
+Chunk 3:
+1	Add a search function to the animes display page
+    -can rip this from the gourmet lab or whatever
+2.	Add a sort function to the animes display page
+    -use the animeGenres array in the json file and a .filter method
+        -create a "sortBy" helper function in all animes page
+        -add a selector at the top of the animes display page that says "sort by:" and you can select one of the options
+        -animes.filter((element) => element.genre === genre) <-where genre is a state variable declared at the top
 
-    a.	For animes
-    b.	For voice actors
-    c.	For users
-
-23.	Add DELETE functionality
-    a.	For animes
-    b.	For voice actors
-    c.	For users
-24.	Add FAVORITE functionality
-    a.	User can add animes to their favorites
-25.	Add RATING functionality
-    a.	User can rate the anime with a number input
-    b.	User can only rate once
-26.	Add Comments
-    a.	Comments on Anime
-    b.	Comments on Voice Actor
-27.	Add a sort function to the animes display page
-28.	Add a search function to the animes display page
-29.	Add a search function to the “all voice actors” page
-30.	Add a sort function to the “all voice actors” page
-31.	Add 1 user to the website using the signup page
-32.	Update middleware so that the user is only able to edit the anime(s) he’s contributed
-33.	Update middleware so that the user is only able to rate once
-34.	Update middleware so that only authenticated users can comment
-35.	Update middleware so that only the user that created the anime can delete it
-36.	Update middleware so that only the user that created the voiceactor can delete it
-
-38.	Test favoriting function
-39.	Test rating function
-40.	Test editing anime function
-41.	Test delete anime function
-42.	Create a second user
-43.	Test all the middleware
-44.	Logout
-45.	Test all the middleware (make certain pages private, but let the “all animes” page be public)
-46.	Add a background picture to the homepage
-47.	Add anime quotes to the homepage
-48.	Add “highest rated anime” to the homepage
-49.	Homepage navbar
-    a.	Signup, login, all animes, all voice actors should be publicly available
-    b.	Once logged in, all animes, all voice actors, create anime, create voice actor, create character should be available
-50.	Style the hell out of the website
+Chunk 4:
+1.	Homepage navbar
+    a.	Signup, login, all animes, all characters should be publicly available (add to favorites button should not be visible when no user, similar to the add anime component at the top of the page)
+    c. style the "login button" to be on the far right side of the screen with a className
+    d. style the "home page" and the rest of the buttons to be on the far left side ofthe screen
+2.	Style the hell out of the website
+    -color the "card" elements different colors maybe?
+    -style the buttons?

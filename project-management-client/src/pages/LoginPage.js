@@ -34,7 +34,7 @@ function LoginPage() {
 
         authenticateUser()
       
-        navigate('/profile');                           
+        navigate('/profile/:userId');                           
       })
       .catch((error) => {
         const errorDescription = error.response.data.message;

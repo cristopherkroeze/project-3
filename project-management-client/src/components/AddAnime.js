@@ -1,56 +1,111 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import genres from "../animeGenres"
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+import {useNavigate} from "react-router-dom"
+import { AuthContext } from "../context/auth.context";
+import { AnimeContext } from "../context/anime.context";
 
 const API_URL = "http://localhost:4000";
 
-function AddProject({ refreshProjects }) {
-
+function AddAnime({ refreshAnimes }) {
+  const navigate = useNavigate();
+  const [img, setImg] = useState("");
   const [title, setTitle] = useState("");
+  const [rating, setRating] = useState(0);
+  const [genre, setGenre] = useState("Action");
   const [description, setDescription] = useState("");
 
-  const handleSubmit = (e) => {                          // <== ADD
+
+  const {user} = useContext(AuthContext)
+  const {lastAddedAnime, setLastAddedAnime} = useContext(AnimeContext)
+
+  const handleSubmit = (e) => {                          
     e.preventDefault();
  
-    const requestBody = { title, description };
+    const requestBody = { img, title, rating, genre, description, addedBy: user._id };
 
     axios
-      .post(`${API_URL}/projects`, requestBody)
+      .post(`${API_URL}/animes`, requestBody)
       .then((response) => {
-        console.log("New project", response.data)
-        // Reset the state
+        console.log("New anime", response.data);
+        setLastAddedAnime(response.data);
+        setImg("");
         setTitle("");
+        setRating(0);
+        setGenre("");
         setDescription("");
-        refreshProjects()
+        refreshAnimes()
+        navigate("/animes/addCharacter")
       })
       .catch((error) => console.log(error));
   };
 
 
   return (
-    <div className="AddProject">
-      <h3>Add Project</h3>
-
-      <form onSubmit={handleSubmit}>
-        <label>Title:</label>
+    <div className="AddAnime">
+    <form onSubmit={handleSubmit}>
+    <Card style={{ width: "40vw" }}>
+        <Card.Title>
+        Add Anime:
+        </Card.Title>
+        <ListGroup className="list-group-flush">
+          <ListGroup.Item>
+          <label>Image:</label>
+        <input
+          type="text"
+          name="img"
+          value={img}
+          onChange={(e) => setImg(e.target.value)}
+        />
+        </ListGroup.Item>
+          <ListGroup.Item>
+          <label>Title:</label>
         <input
           type="text"
           name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-
-        <label>Description:</label>
+          </ListGroup.Item>
+          <ListGroup.Item>
+          <label>Rating:</label>
+        <input
+          type="number"
+          name="rating"
+          min = "0"
+          max = "10"
+          value={rating}
+          onChange={(e) => setRating(e.target.value)}
+        />
+          </ListGroup.Item>
+          <ListGroup.Item>
+          <label>Genre:</label>
+        <select name="genre" onChange={(e) => setGenre(e.target.value)}>
+        {genres.map((element) => {
+          return(<option> {element} </option>)
+        })}
+        </select>
+          </ListGroup.Item>
+          <ListGroup.Item>
+          <label>Description:</label>
         <textarea
           type="text"
           name="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-
+          </ListGroup.Item>
+          </ListGroup>
+        <Card.Body>
         <button type="submit">Submit</button>
+        
+        </Card.Body>
+      </Card>
       </form>
     </div>
   );
 }
 
-export default AddProject;
+export default AddAnime;

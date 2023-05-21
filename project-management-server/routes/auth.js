@@ -2,14 +2,14 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-
+var mongoose = require('mongoose')
 const router = express.Router();
 const saltRounds = 10;
 
 const isAuthenticated = require("../middleware/isAuthenticated");
 
 router.post("/signup", (req, res, next) => {
-  const { email, userName, password, name } = req.body;
+  const { email, userName, password, name, favoriteGenre } = req.body;
 
   if (email === "" || userName === "" || password === "" || name === "") {
     res
@@ -48,13 +48,13 @@ router.post("/signup", (req, res, next) => {
           const salt = bcrypt.genSaltSync(saltRounds);
           const hashedPassword = bcrypt.hashSync(password, salt);
     
-          return User.create({ email, userName, password: hashedPassword, name });
+          return User.create({ email, userName, password: hashedPassword, name, favoriteGenre });
       })
 
     .then((createdUser) => {
-      const { img, role, email, userName, name, _id } = createdUser;
+      const { img, role, email, userName, name, _id, favoriteGenre } = createdUser;
 
-      const user = { img, role, email, userName, name, _id };
+      const user = { img, role, email, userName, name, _id, favoriteGenre };
 
       res.status(201).json(user);
     })
@@ -82,9 +82,9 @@ router.post("/login", (req, res, next) => {
       const passwordCorrect = bcrypt.compareSync(password, foundUser.password);
 
       if (passwordCorrect) {
-        const { _id, userName, name, img, email, role } = foundUser;
+        const { _id, userName, name, img, email, role, favoriteGenre } = foundUser;
 
-        const payload = { _id, userName, name, img, email, role };
+        const payload = { _id, userName, name, img, email, role, favoriteGenre };
 
         const authToken = jwt.sign(payload, process.env.SECRET, {
           algorithm: "HS256",
@@ -103,6 +103,33 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
   console.log("req.user", req.user);
 
   res.status(200).json(req.user);
+});
+
+router.get('/:userId', (req, res, next) => {
+  const { userId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    res.status(400).json({ message: 'Specified id is not valid' });
+    return;
+  }
+
+  User.findById(userId)
+    .populate('favoriteAnimes')
+    .then(user => res.status(200).json(user))
+    .catch(error => res.json(error));
+});
+
+router.put('/:userId', (req, res, next) => {
+  const { userId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    res.status(400).json({ message: 'Specified id is not valid' });
+    return;
+  }
+
+  User.findByIdAndUpdate(userId, req.body, { new: true })
+    .then((updatedUser) => res.json(updatedUser))
+    .catch(error => res.json(error));
 });
 
 module.exports = router;

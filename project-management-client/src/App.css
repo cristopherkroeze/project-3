@@ -15,7 +15,7 @@
   
 
 }
-.AllAnimesPage {
+.AllAnimesPage, .AnimeDetails, .UserProfilePage, .EditUserPage, .EditAnimePage, .CreateACharacterPage {
   background-color: black;
   background-size: cover;
 }

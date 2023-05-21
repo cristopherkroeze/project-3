@@ -12,8 +12,8 @@ const characterSchema = new Schema(
             required: true 
             },
         anime: { type: Schema.Types.ObjectId, ref: "Animes", default: null},
-        voicedBy: { type: Schema.Types.ObjectId, ref: "VoiceActor", default: null},
-        createdBy: { type: Schema.Types.ObjectId, ref: "User", default: null}
+        voicedBy: { type: String,
+        required: true},
     },
     {
         timeseries: true,

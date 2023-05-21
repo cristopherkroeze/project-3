@@ -1,4 +1,4 @@
-[
+const genres = [
     "Action",
     "Adventure",
     "Comedy",
@@ -13,6 +13,8 @@
     "Romance",
     "Sci-Fi"
 ]
+
+export default genres;
 
 
 

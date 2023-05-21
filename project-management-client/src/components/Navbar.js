@@ -18,11 +18,14 @@ function Navbar() {
           <Link to="/animes">
             <button>Animes</button>
           </Link>
-          <Link to="/profile">
+          <Link to={`/profile/${user._id}`}>
             <button>Profile</button>
           </Link>
-          <span>{user && user.name}</span>          
+          <span>{user && user.name}</span> 
+          <Link to="/">
           <button onClick={logOutUser}>Logout</button>
+          </Link>         
+          
         </>
       )}
  

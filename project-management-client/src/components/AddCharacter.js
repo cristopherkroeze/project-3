@@ -1,64 +1,81 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+import {useNavigate} from "react-router-dom"
+import { AnimeContext } from "../context/anime.context";
 
 const API_URL = "http://localhost:4000";
 
-
-function AddTask({ refreshProject, projectId }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-
-  
-  const handleSubmit = (e) => {      //  <== UPDATE THE FUNCTION
+function AddCharacter() {
+  const navigate = useNavigate();
+  const [img, setImg] = useState("");
+  const [name, setName] = useState("");
+  const {lastAddedAnime} = useContext(AnimeContext);
+  const [voicedBy, setVoicedBy] = useState("")
+  const handleSubmit = (e) => {                          
     e.preventDefault();
  
-    // We need the project id when creating the new task
-    // const { projectId } = props;
-    // Create an object representing the body of the POST request
-    const requestBody = { title, description, projectId };
- 
-    axios
-      .post(`${API_URL}/tasks`, requestBody)
-      .then((response) => {
+    const requestBody = { img, name, anime: lastAddedAnime._id, voicedBy  };
 
-        console.log("new task:", response.data)
-        // Reset the state to clear the inputs
-        setTitle("");
-        setDescription("");
-      
-        // Invoke the callback function coming through the props
-        // from the ProjectDetailsPage, to refresh the project details
-        refreshProject();
+    axios
+      .post(`${API_URL}/characters`, requestBody)
+      .then((response) => {
+        console.log("New character", response.data)
+        setImg("");
+        setName("");
+        setVoicedBy("")
+        navigate("/animes")
+
+        
       })
       .catch((error) => console.log(error));
   };
 
-  
+
   return (
-    <div className="AddTask">
-      <h3>Add New Task</h3>
-      
-      <form onSubmit={handleSubmit}>
-        <label>Title:</label>
+    <div className="AddCharacter">
+    <form onSubmit={handleSubmit}>
+    <Card style={{ width: "40vw" }}>
+        <Card.Title>
+        Add Character:
+        </Card.Title>
+        <ListGroup className="list-group-flush">
+          <ListGroup.Item>
+          <label>Image:</label>
         <input
           type="text"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          name="img"
+          value={img}
+          onChange={(e) => setImg(e.target.value)}
         />
-
-        <label>Description:</label>
-        <textarea
+        </ListGroup.Item>
+          <ListGroup.Item>
+          <label>Name:</label>
+        <input
           type="text"
-          name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          name="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
-
-        <button type="submit">Add Task</button>
+          </ListGroup.Item>
+          <ListGroup.Item>
+          <label>Voiced By (Japanese):</label>
+        <input
+          type="text"
+          name="voicedBy"
+          value={voicedBy}
+          onChange={(e) => setVoicedBy(e.target.value)}
+        />
+          </ListGroup.Item>
+          </ListGroup>
+        <Card.Body>
+        <button type="submit">Submit</button>
+        </Card.Body>
+      </Card>
       </form>
     </div>
   );
 }
 
-export default AddTask;
+export default AddCharacter;

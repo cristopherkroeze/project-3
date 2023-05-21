@@ -18,3 +18,21 @@ export const post = (route, body) => {
   });
 
 };
+
+export const animeDelete = (route, body) => {
+  let token = localStorage.getItem("authToken");
+
+  return axios.delete(baseUrl + route, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+};
+
+export const commentDelete = (route, body) => {
+  let token = localStorage.getItem("authToken");
+
+  return axios.delete(baseUrl + route, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+};

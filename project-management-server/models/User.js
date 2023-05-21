@@ -25,7 +25,6 @@ const userSchema = new Schema(
             required: true 
             },
         favoriteAnimes: [ { type: Schema.Types.ObjectId, ref: "Animes"} ],
-        favoriteVoiceActor: { type: Schema.Types.ObjectId, ref: "VoiceActor", default: null},
         favoriteGenre: { 
             type: String  
             },

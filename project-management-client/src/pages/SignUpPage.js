@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import genres from "../animeGenres"
 
 const API_URL = "http://localhost:4000";
 
@@ -12,6 +13,7 @@ function SignupPage() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [favoriteGenre, setFavoriteGenre] = useState("Action");
   const [errorMessage, setErrorMessage] = useState(undefined);
 
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ function SignupPage() {
   const handleSignupSubmit = (e) => {
     e.preventDefault();
     // Create an object representing the request body
-    const requestBody = { email, userName, password, name };
+    const requestBody = { email, userName, password, name, favoriteGenre };
  
     // Make an axios request to the API
     // If the POST request is a successful redirect to the login page
@@ -64,6 +66,12 @@ function SignupPage() {
         <label>Name:</label>
         <input type="text" name="name" value={name} onChange={handleName} />
 
+        <label>Favorite Genre:</label>
+        <select name="genre" onChange={(e) => setFavoriteGenre(e.target.value)}>
+        {genres.map((element) => {
+          return(<option> {element} </option>)
+        })}
+        </select>
         <button type="submit">Sign Up</button>
       </form>
 

@@ -12,7 +12,6 @@ var authRouter = require('./routes/auth');
 var charactersRouter = require('./routes/characters');
 var commentsRouter = require('./routes/comments');
 var usersRouter = require('./routes/users');
-var voiceActorsRouter = require('./routes/voiceActors');
 
 var app = express();
 
@@ -37,7 +36,6 @@ app.use('/auth', authRouter);
 app.use('/characters', charactersRouter);
 app.use('/comments', commentsRouter);
 app.use('/users', usersRouter);
-app.use('/voiceActors', voiceActorsRouter);
 
 
 mongoose

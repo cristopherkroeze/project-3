@@ -1,61 +1,47 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";  
 import axios from "axios";
+import genres from "../animeGenres"
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 const API_URL = "http://localhost:4000";
 
-function EditProjectPage() {
+function EditAnimePage() {
 
+  const navigate = useNavigate();
+  const [img, setImg] = useState("");
   const [title, setTitle] = useState("");
+  const [genre, setGenre] = useState("Action");
   const [description, setDescription] = useState("");
 
-  const { projectId } = useParams(); 
+  const { animeId } = useParams(); 
 
-  const navigate = useNavigate()
-
-  const handleFormSubmit = (e) => {                     // <== ADD
+  const handleSubmit = (e) => {                    
     e.preventDefault();
-    // Create an object representing the body of the PUT request
-    const requestBody = { title, description };
+    const requestBody = { img, title, genre, description };
  
-    // Make a PUT request to update the project
     axios
-      .put(`${API_URL}/projects/${projectId}`, requestBody)
+      .put(`${API_URL}/animes/${animeId}`, requestBody)
       .then((response) => {
         console.log("Updated:", response.data)
-        // Once the request is resolved successfully and the project
-        // is updated we navigate back to the details page
-        navigate(`/projects/${projectId}`)
+        navigate(`/animes/${animeId}`)
       })
       .catch((err) => {
         console.log(err)
       })
   };
 
-  const deleteProject = () => {                    //  <== ADD
-    // Make a DELETE request to delete the project
-    axios
-      .delete(`${API_URL}/projects/${projectId}`)
-      .then((response) => {
-        console.log("Delete response", response.data)
-        // Once the delete request is resolved successfully
-        // navigate back to the list of projects.
-        navigate("/projects");
-      })
-      .catch((err) => console.log(err));
-  };  
 
-  useEffect(() => {                                  // <== ADD
+  useEffect(() => {
     axios
-      .get(`${API_URL}/projects/${projectId}`)
+      .get(`${API_URL}/animes/${animeId}`)
       .then((response) => {
-        /* 
-          We update the state with the project data coming from the response.
-          This way we set inputs to show the actual title and description of the project
-        */
-        const oneProject = response.data;
-        setTitle(oneProject.title);
-        setDescription(oneProject.description);
+        const oneAnime = response.data;
+        setImg(oneAnime.img);
+  setTitle(oneAnime.title);
+  setGenre(oneAnime.Genre)
+  setDescription(oneAnime.description);
       })
       .catch((error) => console.log(error));
     
@@ -63,32 +49,57 @@ function EditProjectPage() {
 
   
   return (
-    <div className="EditProjectPage">
-      <h3>Edit the Project</h3>
-
-      <form onSubmit={handleFormSubmit}>
-        <label>Title:</label>
+    <div className="EditAnimePage">
+      <form onSubmit={handleSubmit}>
+    <Card style={{ width: "40vw" }}>
+        <Card.Title>
+        Edit Anime:
+        </Card.Title>
+        <ListGroup className="list-group-flush">
+          <ListGroup.Item>
+          <label>Image:</label>
+        <input
+          type="text"
+          name="img"
+          value={img}
+          onChange={(e) => setImg(e.target.value)}
+        />
+        </ListGroup.Item>
+          <ListGroup.Item>
+          <label>Title:</label>
         <input
           type="text"
           name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        
-        <label>Description:</label>
+          </ListGroup.Item>
+          <ListGroup.Item>
+          <label>Genre:</label>
+        <select name="genre" value={genre} onChange={(e) => setGenre(e.target.value)}>
+        {genres.map((element) => {
+          return(<option> {element} </option>)
+        })}
+        </select>
+          </ListGroup.Item>
+          <ListGroup.Item>
+          <label>Description:</label>
         <textarea
+          type="text"
           name="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-
-        <button type="submit">Edit Project</button>
+          </ListGroup.Item>
+          </ListGroup>
+        <Card.Body>
+        <button type="submit">Submit</button>
+        
+        </Card.Body>
+      </Card>
       </form>
-
-      <button onClick={deleteProject}>Delete Project</button>
-
     </div>
   );
 }
 
-export default EditProjectPage;
+export default EditAnimePage;

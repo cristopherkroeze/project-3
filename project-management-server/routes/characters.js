@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 
 
 const Character = require('../models/Character');
-
+const Anime = require('../models/Anime')
 router.get('/', (req, res, next) => {
     Character.find()
       .populate('voicedBy')
@@ -27,7 +27,17 @@ router.post("/", (req, res, next) => {
          })
 
     Character.create({ img, name, anime, voicedBy, createdBy })
-      .then(response => res.json(response))
+      .then(response => {
+        Anime.findByIdAndUpdate(anime,  {
+          mainCharacter: response._id
+        })
+            .then((updatedAnime) => {
+                console.log(updatedAnime)
+            })
+            .catch(error => res.json(error));
+
+        res.json(response)
+      })
       .catch(err => res.json(err));
   });
 
