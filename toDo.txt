@@ -11,22 +11,15 @@ When I add a comment, it doesn't show up unless I refresh (right now i used wind
     -same with deleting
 For some reason the "added by" field continued to be empty even though I'm adding comments the same way im adding animes
 For some reason, favoriteAnimes is not populating on my user profile page (maybe because User itself isnt populated anywhere? I don't have a get route for user which would get the latest user)
-
+when navigating back to /animes after rating, the new rating is not shown until the user refreshes or hits the "animes" button at the top of the page
+    -I could use window.location.reload(false); as a workaround?
+remove from favorites works but doesnt redirect to the profile page and the user is only updated upon logout and login
 
 Chunk 1:
 1. RIP the cloudinary code from project 2 and add it to the "edit" and "create" components
 2. copy the cloudinary code from project 2 so that your img can be uploaded from your computer (this will affect user, anime, and character routes)
     -add cloudinary secret/url/etc to .env
 3. re-test create and edit functionality
-
-
-Chunk 2:
-1. add the rating functionality with stars using the react-stars-rating module that daniel linked (should be below)
-    -make sure a user can only rate once!!!!!!!
-    -https://www.npmjs.com/package/react-simple-star-rating
-    -you may have to make a route in animes for when people rate, that causes the "ratedBy" array of the anime to fill with users so you can get the average rating
-2. add the highest rated anime to the homepage
-    -will probably need to make a get request to the server for the list of all animes and reduce them with a (a.rating>b.rating) type thing
 
 
 Chunk 3:
@@ -46,3 +39,4 @@ Chunk 4:
 2.	Style the hell out of the website
     -color the "card" elements different colors maybe?
     -style the buttons?
+    -color the backgrounds black/make the background images flush?

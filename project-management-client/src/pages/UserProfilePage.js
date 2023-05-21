@@ -7,12 +7,20 @@ import { get, post } from "../services/authService";
 
 function UserProfilePage () {
     
-    const { user } = useContext(AuthContext)
+    const { user, setUser } = useContext(AuthContext)
     const {authenticateUser} = useContext(AuthContext)
 
-    useEffect(() => {
-        authenticateUser();
-      }, []);
+    // useEffect(() => {
+    //     console.log("USER IN PROFILE", user)
+    //     authenticateUser();
+    //     const userId = user._id
+    //     get(`/auth/${userId}`)
+    //       .then((response) => {
+    //         const oneUser = response.data;
+    //         setUser(oneUser)
+    //       })
+    //       .catch((error) => console.log(error));
+    //   }, []);
       
     return (
         <div className="UserProfilePage">

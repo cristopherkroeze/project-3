@@ -11,11 +11,14 @@ function UserCard({
   name,
   favoriteAnimes,
   favoriteGenre,
-  role,
+  role
 }) {
+  const storedToken = localStorage.getItem("authToken");
+  const favoriteAnimesList = true
+console.log(favoriteAnimes)
   return (
     <>
-      <Card style={{ width: "18rem" }}>
+      <Card style={{ width: "45vw" }}>
         <Card.Img variant="top" src={img}  />
         <Card.Title>{userName}</Card.Title>
 
@@ -26,11 +29,16 @@ function UserCard({
           {favoriteGenre && <ListGroup.Item>Favorite Genre: {favoriteGenre}</ListGroup.Item>}
           <ListGroup.Item><Link to={`/profile/edit/${_id}`} >Edit Profile</Link></ListGroup.Item>
         </ListGroup>
+        <Card.Title>Favorite Animes:</Card.Title>
         {favoriteAnimes?.length &&
           favoriteAnimes.map((element) => {
-            return(<Card.Body>
-              <AnimeCard {...element} />
-            </Card.Body>);
+            return(
+              <AnimeCard {...element} showAllComments={false}
+              homePageTrue={false}
+              storedToken={storedToken} 
+                favoriteAnimesList={favoriteAnimesList}
+              />
+            );
           })}
       </Card>
     </>

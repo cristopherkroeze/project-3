@@ -13,7 +13,6 @@ function AddAnime({ refreshAnimes }) {
   const navigate = useNavigate();
   const [img, setImg] = useState("");
   const [title, setTitle] = useState("");
-  const [rating, setRating] = useState(0);
   const [genre, setGenre] = useState("Action");
   const [description, setDescription] = useState("");
 
@@ -24,7 +23,7 @@ function AddAnime({ refreshAnimes }) {
   const handleSubmit = (e) => {                          
     e.preventDefault();
  
-    const requestBody = { img, title, rating, genre, description, addedBy: user._id };
+    const requestBody = { img, title, genre, description, addedBy: user._id };
 
     axios
       .post(`${API_URL}/animes`, requestBody)
@@ -33,7 +32,6 @@ function AddAnime({ refreshAnimes }) {
         setLastAddedAnime(response.data);
         setImg("");
         setTitle("");
-        setRating(0);
         setGenre("");
         setDescription("");
         refreshAnimes()
@@ -67,17 +65,6 @@ function AddAnime({ refreshAnimes }) {
           name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-        />
-          </ListGroup.Item>
-          <ListGroup.Item>
-          <label>Rating:</label>
-        <input
-          type="number"
-          name="rating"
-          min = "0"
-          max = "10"
-          value={rating}
-          onChange={(e) => setRating(e.target.value)}
         />
           </ListGroup.Item>
           <ListGroup.Item>

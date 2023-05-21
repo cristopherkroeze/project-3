@@ -18,7 +18,6 @@ function AllAnimesPage() {
 
   const getAllAnimes = () => {
   
-    const storedToken = localStorage.getItem("authToken");
 
     get('/animes')
 
@@ -46,7 +45,7 @@ function AllAnimesPage() {
         {animes.map((element) => {
           return (
             <>
-            <AnimeCard key={element._id} {...element} showAllComments = {showAllComments} storedToken = {storedToken}/>
+            <AnimeCard key={element._id} {...element} showAllComments = {showAllComments} storedToken = {storedToken} homePageTrue ={true}/>
             </>
           );
         })}     

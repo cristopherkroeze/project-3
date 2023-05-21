@@ -40,7 +40,7 @@ function EditAnimePage() {
         const oneAnime = response.data;
         setImg(oneAnime.img);
   setTitle(oneAnime.title);
-  setGenre(oneAnime.Genre)
+  setGenre(oneAnime.genre)
   setDescription(oneAnime.description);
       })
       .catch((error) => console.log(error));

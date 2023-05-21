@@ -1,14 +1,16 @@
 import Card from 'react-bootstrap/Card';
 
 function CharacterCard({
-  mainCharacter
+  mainCharacter,
+  viewWidth
 }) {
     const img = mainCharacter.img
     const name = mainCharacter.name
     const voicedBy = mainCharacter.voicedBy
+    viewWidth = viewWidth - 5
   return (
     <>
-      <Card style={{ width: "35vw" }}>
+      <Card style={{ width: `${viewWidth}vw` }}>
         <Card.Img variant="top" src={img} />
         <Card.Body>
         <Card.Title>

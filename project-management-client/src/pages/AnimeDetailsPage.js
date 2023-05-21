@@ -58,7 +58,7 @@ const AnimeDetailsPage = () => {
         <ListGroup className="list-group-flush">
           <ListGroup.Item>
             {anime && (
-              <AnimeCard {...anime} showAllComments={showAllComments} storedToken={storedToken}/>
+              <AnimeCard {...anime} showAllComments={showAllComments} storedToken={storedToken} homePageTrue ={true}/>
             )}
           </ListGroup.Item>
           <ListGroup.Item>

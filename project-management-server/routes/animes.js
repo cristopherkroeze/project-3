@@ -154,5 +154,48 @@ router.get('/:animeId', (req, res, next) => {
   
       });
 
+      router.post("/addRating/:animeId", (req, res, next) => {
+        const {animeId} = req.params;
+        const { userId, newRating } = req.body;
+        
+        console.log("animeId", animeId)
+        console.log("userId", userId)
+        console.log("newRating", newRating)
+        Anime.findById(animeId)
+              .then((response) => {
+                      if (response.ratedBy.includes(userId)) {
+                        res.json({message: "You have already rated this anime"})
+                        return;
+                      } else {
+                        Anime.findByIdAndUpdate(animeId,
+                          {
+                            $addToSet: {ratedBy: userId}
+                          },
+                          {new: true})
+                          .then((resultingAnime)=>{
+                            console.log("resultingAnime:", resultingAnime)
+                            console.log("length of array", resultingAnime.ratedBy.length)
+                            let arrayLength = resultingAnime.ratedBy.length
+                            let oldRating = 0
+                            if (resultingAnime.rating) {
+                              oldRating = resultingAnime.rating
+                            }
+                             let temp = (arrayLength-1)*oldRating
+                            let average = (temp+newRating)/arrayLength
+                            average = Math.round(average);
+                            console.log("average:", average)
+                            Anime.findByIdAndUpdate(animeId, {rating:average}, { new: true })
+                                .then((finalAnime) => {
+                                  console.log("anime after rating", finalAnime)
+                                })
+                                .catch(error => res.json(error));
+                          })
+                          .catch(error => res.json(error));
+                      }
+                    })
+            .catch(error => res.json(error));
+    
+        });
+
 
 module.exports = router;

@@ -48,7 +48,7 @@ router.post("/signup", (req, res, next) => {
           const salt = bcrypt.genSaltSync(saltRounds);
           const hashedPassword = bcrypt.hashSync(password, salt);
     
-          return User.create({ email, userName, password: hashedPassword, name, favoriteGenre });
+          return User.create({ email, userName, password: hashedPassword, name, favoriteGenre, favoriteAnimes: [] });
       })
 
     .then((createdUser) => {
@@ -82,9 +82,9 @@ router.post("/login", (req, res, next) => {
       const passwordCorrect = bcrypt.compareSync(password, foundUser.password);
 
       if (passwordCorrect) {
-        const { _id, userName, name, img, email, role, favoriteGenre } = foundUser;
+        const { _id, userName, name, img, email, role, favoriteGenre, favoriteAnimes } = foundUser;
 
-        const payload = { _id, userName, name, img, email, role, favoriteGenre };
+        const payload = { _id, userName, name, img, email, role, favoriteGenre, favoriteAnimes };
 
         const authToken = jwt.sign(payload, process.env.SECRET, {
           algorithm: "HS256",
@@ -102,7 +102,13 @@ router.post("/login", (req, res, next) => {
 router.get("/verify", isAuthenticated, (req, res, next) => {
   console.log("req.user", req.user);
 
-  res.status(200).json(req.user);
+  User.findById(req.user._id)
+       .populate('favoriteAnimes')
+      .then((foundUser) => {
+        res.status(200).json(foundUser);
+      })
+      .catch(error => res.json(error));
+  
 });
 
 router.get('/:userId', (req, res, next) => {
@@ -112,10 +118,13 @@ router.get('/:userId', (req, res, next) => {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
-
+  console.log("userId:", userId)
   User.findById(userId)
     .populate('favoriteAnimes')
-    .then(user => res.status(200).json(user))
+    .then(user => {
+      console.log("user:", user)
+      res.status(200).json(user)
+    })
     .catch(error => res.json(error));
 });
 
