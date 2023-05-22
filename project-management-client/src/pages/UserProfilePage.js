@@ -10,6 +10,7 @@ function UserProfilePage () {
     const { user, setUser } = useContext(AuthContext)
     const {authenticateUser} = useContext(AuthContext)
 
+   
     // useEffect(() => {
     //     console.log("USER IN PROFILE", user)
     //     authenticateUser();

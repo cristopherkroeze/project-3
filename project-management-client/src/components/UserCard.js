@@ -16,6 +16,7 @@ function UserCard({
   const storedToken = localStorage.getItem("authToken");
   const favoriteAnimesList = true
 console.log(favoriteAnimes)
+
   return (
     <>
       <Card style={{ width: "45vw" }}>

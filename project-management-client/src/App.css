@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+.LeftAlign {
+  text-align: left;
+}
+
+.RightAlign {
+  text-align: right;
+}
+
 .HomePage {
 
   

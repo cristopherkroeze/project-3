@@ -1,42 +1,35 @@
 toDo:
 
-
-
-later on, add isAdmin check in the authMiddleware which overrides all middleware and allows the admin to edit anything and delete anything
+add isAdmin check in the authMiddleware which overrides all middleware and allows the admin to edit anything and delete anything
 
 QUESTIONS/HELP FOR MONDAY:
-"Genre" doesn't seem to store its value and always resets to Action in the selector
-My "edit user" works; however, the img and name do not update until after you log out and back in
-When I add a comment, it doesn't show up unless I refresh (right now i used window.location.reload(false); as a workaround)
+
+HIGH PRIORITY:
+1. My "edit user" works; however, the img and name do not update until after you log out and back in
+    -"Genre" doesn't seem to store its value and always resets to Action in the selector
+
+2. When I add a comment, it doesn't show up unless I refresh (right now i used window.location.reload(false); as a workaround)
     -same with deleting
-For some reason the "added by" field continued to be empty even though I'm adding comments the same way im adding animes
-For some reason, favoriteAnimes is not populating on my user profile page (maybe because User itself isnt populated anywhere? I don't have a get route for user which would get the latest user)
-when navigating back to /animes after rating, the new rating is not shown until the user refreshes or hits the "animes" button at the top of the page
+
+3. For some reason the "added by" field continued to be empty even though I'm adding comments the same way im adding animes
+    -in the database, the added by field is not empty
+
+4. For some reason, favoriteAnimes is not populating on my user profile page (maybe because User itself isnt populated anywhere? I don't have a get route for user which would get the latest user)
+    -the profile page does not reflect your favorite animes in the database
+
+5. when navigating back to /animes after rating, the new rating is not shown until the user refreshes or hits the "animes" button at the top of the page
     -I could use window.location.reload(false); as a workaround?
-remove from favorites works but doesnt redirect to the profile page and the user is only updated upon logout and login
+6. remove from favorites works but doesnt redirect to the profile page and the user is only updated upon logout and login
+    -refreshing the page seems to work
+
+LOW PRIORITY:
+1. my background picture on my homepage doesnt repeat even when i say repeat:true, so when you scroll down its just white
+2. the background color of some of my pages doesnt become black when i change it in the CSS or inline style it
+
 
 Chunk 1:
 1. RIP the cloudinary code from project 2 and add it to the "edit" and "create" components
 2. copy the cloudinary code from project 2 so that your img can be uploaded from your computer (this will affect user, anime, and character routes)
     -add cloudinary secret/url/etc to .env
 3. re-test create and edit functionality
-
-
-Chunk 3:
-1	Add a search function to the animes display page
-    -can rip this from the gourmet lab or whatever
-2.	Add a sort function to the animes display page
-    -use the animeGenres array in the json file and a .filter method
-        -create a "sortBy" helper function in all animes page
-        -add a selector at the top of the animes display page that says "sort by:" and you can select one of the options
-        -animes.filter((element) => element.genre === genre) <-where genre is a state variable declared at the top
-
-Chunk 4:
-1.	Homepage navbar
-    a.	Signup, login, all animes, all characters should be publicly available (add to favorites button should not be visible when no user, similar to the add anime component at the top of the page)
-    c. style the "login button" to be on the far right side of the screen with a className
-    d. style the "home page" and the rest of the buttons to be on the far left side ofthe screen
-2.	Style the hell out of the website
-    -color the "card" elements different colors maybe?
-    -style the buttons?
-    -color the backgrounds black/make the background images flush?
+4.color the backgrounds black/make the background images flush?
