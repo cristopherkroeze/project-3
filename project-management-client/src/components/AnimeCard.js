@@ -24,40 +24,51 @@ function AnimeCard({
   showAllComments,
   storedToken,
   homePageTrue,
-  favoriteAnimesList
+  favoriteAnimesList,
+  setReload,
+  setAnime,
+  isProfile
 }) {
   const API_URL = "http://localhost:4000";
-  const { user } = useContext(AuthContext);
+  const { user, setCurrentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   let viewWidth = 40
   if (favoriteAnimesList) {
     viewWidth = 15
   }
   console.log(viewWidth)
-  const handleRating = (newRating: number) => {
-    console.log("hi");
+  const handleRating = (newRating) => {
     let userId = user._id;
     const requestBody = { userId, newRating };
+    console.log("Request Body:", requestBody, _id)
     post(`/animes/addRating/${_id}`, requestBody)
       .then((response) => {
-        alert(response.data.message);
+        if (response.data.message) {
+          alert(response.data.message)
+        } else {
+          setAnime(response.data)
+        }
       })
       .catch((error) => console.log(error));
-    window.location.reload(false);
+    
   };
 
-  const onPointerMove = (value: number) => console.log(value);
+  const onPointerMove = (value) => console.log(value);
 
   const addToFavorites = () => {
     let userId = user._id;
     const requestBody = { userId };
 
-    axios
-      .post(`${API_URL}/animes/addFavorite/${_id}`, requestBody)
-      .then((response) => {
-        navigate(`/profile/${userId}`);
-      })
-      .catch((error) => console.log(error));
+    axios.post(`${API_URL}/animes/addFavorite/${_id}`, requestBody)
+  .then((results) => {
+    console.log("ADD to favorites", results.data)
+    // setCurrentUser(results.data)
+    navigate(`/profile/${userId}`)
+  })
+  .catch((err) => {
+    console.log("Error adding to favorites", err)
+  })
+
   };
 
   const removeFromFavorites = () => {
@@ -67,6 +78,8 @@ function AnimeCard({
     axios
       .post(`${API_URL}/animes/removeFavorite/${_id}`, requestBody)
       .then((response) => {
+        console.log("THIS IS AFTER REMOVAL:", response.data)
+        // setCurrentUser(response.data)
         navigate(`/profile/${userId}`);
       })
       .catch((error) => console.log(error));
@@ -87,7 +100,9 @@ function AnimeCard({
           {description}
         </Card.Body>
 
-        <ListGroup className="list-group-flush">
+        {!isProfile && (
+          <>
+          <ListGroup className="list-group-flush">
           {rating && <ListGroup.Item>Rating: {rating}</ListGroup.Item>}
           {showAllComments && (
             <Rating onClick={handleRating} onPointerMove={onPointerMove} />
@@ -104,16 +119,18 @@ function AnimeCard({
           )}
         </ListGroup>
         <Card.Body>
-          {storedToken && showAllComments && <AddComment animeId={_id} />}
+          {storedToken && showAllComments && <AddComment animeId={_id} setReload = {setReload}/>}
         </Card.Body>
 
         <Card.Body>
+          
+          
           {showAllComments ? (
             <>
               {comments && comments.length ? (
                 <>
                   {comments.map((element) => {
-                    return <CommentCard {...element} animeId={_id} />;
+                    return <CommentCard {...element} animeId={_id} setReload = {setReload} viewWidth = {viewWidth} />;
                   })}
                 </>
               ) : (
@@ -127,22 +144,22 @@ function AnimeCard({
               } else if (comments.length === 1) {
                 return (
                   <>
-                    <CommentCard {...comments[0]} animeId={null} />
+                    <CommentCard {...comments[0]} animeId={null} setReload = {setReload} viewWidth = {viewWidth} />
                   </>
                 );
               } else if (comments.length === 2) {
                 return (
                   <>
-                    <CommentCard {...comments[0]} animeId={null} />
-                    <CommentCard {...comments[1]} animeId={null} />
+                    <CommentCard {...comments[0]} animeId={null} setReload = {setReload} viewWidth = {viewWidth} />
+                    <CommentCard {...comments[1]} animeId={null} setReload = {setReload} viewWidth = {viewWidth}/>
                   </>
                 );
               } else if (comments.length >= 3) {
                 return (
                   <>
-                    <CommentCard {...comments[0]} animeId={null} />
-                    <CommentCard {...comments[1]} animeId={null} />
-                    <CommentCard {...comments[2]} animeId={null} />
+                    <CommentCard {...comments[0]} animeId={null} setReload = {setReload} viewWidth = {viewWidth}/>
+                    <CommentCard {...comments[1]} animeId={null} setReload = {setReload} viewWidth = {viewWidth}/>
+                    <CommentCard {...comments[2]} animeId={null} setReload = {setReload} viewWidth = {viewWidth}/>
                   </>
                 );
               }
@@ -173,6 +190,8 @@ function AnimeCard({
             </ListGroup>
           )}
         </Card.Body>
+        </>
+        )}
       </Card>
     </>
   );

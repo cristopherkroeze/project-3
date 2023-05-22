@@ -6,6 +6,7 @@ var mongoose = require('mongoose')
 const Anime = require('../models/Anime');
 const User = require('../models/User')
 const Comment = require('../models/Comment')
+const fileUploader = require('../util/cloudinary.config')
 
 router.get('/', (req, res, next) => {
     Anime.find()
@@ -50,8 +51,11 @@ router.get('/:animeId', (req, res, next) => {
       .populate('mainCharacter')
       .populate('addedBy')
       .populate('ratedBy')
-      .populate('comments')
-      .then(anime => res.status(200).json(anime))
+      .populate({path: 'comments', populate: {path: 'addedBy'}})
+      .then(anime => {
+        console.log("anime:", anime)
+        console.log("comments:", anime.comments)
+        res.json(anime)})
       .catch(error => res.json(error));
   });
   
@@ -132,16 +136,19 @@ router.get('/:animeId', (req, res, next) => {
         {new: true})
         .then((updatedUser) => {
           console.log("updated User:", updatedUser)
+          res.json(updatedUser)
         })
         .catch(error => res.json(error));
 
     });
 
+    // .populate({path: 'favoriteAnimes', populate: {path: 'comments addedBy mainCharacter'}})
+
     router.post("/removeFavorite/:animeId", (req, res, next) => {
       const {animeId} = req.params;
       const { userId } = req.body;
   
-        
+
       User.findByIdAndUpdate(userId,
           {
             $pull: {favoriteAnimes: animeId}
@@ -149,6 +156,7 @@ router.get('/:animeId', (req, res, next) => {
           {new: true})
           .then((updatedUser) => {
             console.log("updated User:", updatedUser)
+            res.json(updatedUser)
           })
           .catch(error => res.json(error));
   
@@ -185,8 +193,13 @@ router.get('/:animeId', (req, res, next) => {
                             average = Math.round(average);
                             console.log("average:", average)
                             Anime.findByIdAndUpdate(animeId, {rating:average}, { new: true })
-                                .then((finalAnime) => {
+                                  .populate('mainCharacter')
+                                  .populate('addedBy')
+                                  .populate('ratedBy')
+                                  .populate({path: 'comments', populate: {path: 'addedBy'}})
+                                  .then((finalAnime) => {
                                   console.log("anime after rating", finalAnime)
+                                  res.json(finalAnime)
                                 })
                                 .catch(error => res.json(error));
                           })

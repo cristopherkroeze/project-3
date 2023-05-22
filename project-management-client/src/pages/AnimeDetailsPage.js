@@ -14,6 +14,7 @@ import { get, animeDelete } from "../services/authService";
 import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
 
 const AnimeDetailsPage = () => {
+  const [reload, setReload] = useState(false);
   const [anime, setAnime] = useState(null);
   const {user} = useContext(AuthContext)
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ const AnimeDetailsPage = () => {
 
   useEffect(() => {
     getAnime();
-  }, []);
+  }, [reload]);
 
   return (
     <div className="AnimeDetails">
@@ -58,7 +59,7 @@ const AnimeDetailsPage = () => {
         <ListGroup className="list-group-flush">
           <ListGroup.Item>
             {anime && (
-              <AnimeCard {...anime} showAllComments={showAllComments} storedToken={storedToken} homePageTrue ={true}/>
+              <AnimeCard {...anime} setAnime={setAnime} setReload={setReload} showAllComments={showAllComments} storedToken={storedToken} homePageTrue ={true}/>
             )}
           </ListGroup.Item>
           <ListGroup.Item>

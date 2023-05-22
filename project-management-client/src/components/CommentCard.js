@@ -10,18 +10,20 @@ function CommentCard({
   title,
   comment,
   addedBy,
-  animeId
+  animeId,
+  setReload,
+  viewWidth
 }) {
   const {user} = useContext(AuthContext)
   const navigate = useNavigate();
+  const newViewWidth = viewWidth - 5
   const deleteComment = () => {
     console.log("added by:", addedBy)
     console.log("user:", user);
-    if(addedBy === user._id) {
+    if(addedBy._id === user._id) {
       commentDelete(`/animes/deleteComment/${_id}`)
       .then(() => {
-        window.location.reload(false);
-        //navigate(`/animes/${animeId}`)
+        setReload(prev => !prev)
       })
       .catch((error) => console.log(error));
     } else {
@@ -31,7 +33,7 @@ function CommentCard({
 
   return (
     <>
-      <Card style={{ width: "18rem" }}>
+      <Card style={{ width: `${newViewWidth}vw` }}>
 
         <Card.Body>
         <Card.Title>{title}</Card.Title>

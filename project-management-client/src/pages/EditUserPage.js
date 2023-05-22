@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";  
 import axios from "axios";
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import genres from "../animeGenres";
+import { AuthContext } from "../context/auth.context";
+
 const API_URL = "http://localhost:4000";
 
 function EditUserPage() {
-
+  const {authenticateUser} = useContext(AuthContext)
   const navigate = useNavigate();
   const [img, setImg] = useState("");
   const [name, setName] = useState("");
@@ -23,6 +25,7 @@ function EditUserPage() {
       .put(`${API_URL}/auth/${userId}`, requestBody)
       .then((response) => {
         console.log("Updated:", response.data)
+        authenticateUser()
         navigate(`/profile/${userId}`)
       })
       .catch((err) => {

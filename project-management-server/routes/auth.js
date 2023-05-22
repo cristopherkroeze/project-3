@@ -103,9 +103,11 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
   console.log("req.user", req.user);
 
   User.findById(req.user._id)
-       .populate('favoriteAnimes')
+      //  .populate('favoriteAnimes')
+      .populate({path: 'favoriteAnimes', populate: {path: 'comments addedBy mainCharacter'}})
       .then((foundUser) => {
-        res.status(200).json(foundUser);
+        console.log("VERIFY ROUTE:", foundUser)
+        res.json(foundUser);
       })
       .catch(error => res.json(error));
   
@@ -120,13 +122,15 @@ router.get('/:userId', (req, res, next) => {
   }
   console.log("userId:", userId)
   User.findById(userId)
-    .populate('favoriteAnimes')
+    .populate({path: 'favoriteAnimes', populate: {path: 'comments, addedBy, mainCharacter'}})
     .then(user => {
-      console.log("user:", user)
-      res.status(200).json(user)
+      console.log("user after populate!!!!:", user)
+      res.json(user)
     })
     .catch(error => res.json(error));
 });
+
+
 
 router.put('/:userId', (req, res, next) => {
   const { userId } = req.params;

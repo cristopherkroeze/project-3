@@ -51,6 +51,7 @@ function AddAnime({ refreshAnimes }) {
         <ListGroup className="list-group-flush">
           <ListGroup.Item>
           <label>Image:</label>
+          {/* <input type="file" id="img" name="img" onChange={(e) => setImg(e.target.value)}/> */}
         <input
           type="text"
           name="img"

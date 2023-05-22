@@ -15,7 +15,7 @@ function UserCard({
 }) {
   const storedToken = localStorage.getItem("authToken");
   const favoriteAnimesList = true
-console.log(favoriteAnimes)
+  const isProfile = true;
 
   return (
     <>
@@ -38,6 +38,7 @@ console.log(favoriteAnimes)
               homePageTrue={false}
               storedToken={storedToken} 
                 favoriteAnimesList={favoriteAnimesList}
+                isProfile={isProfile}
               />
             );
           })}

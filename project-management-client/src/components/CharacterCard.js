@@ -7,7 +7,7 @@ function CharacterCard({
     const img = mainCharacter.img
     const name = mainCharacter.name
     const voicedBy = mainCharacter.voicedBy
-    viewWidth = viewWidth - 5
+    viewWidth = viewWidth - 10
   return (
     <>
       <Card style={{ width: `${viewWidth}vw` }}>

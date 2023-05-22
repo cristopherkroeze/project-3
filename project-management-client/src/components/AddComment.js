@@ -9,7 +9,7 @@ import { get } from "../services/authService";
 const API_URL = "http://localhost:4000";
 
 
-function AddComment({animeId}) {
+function AddComment({animeId, setReload}) {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [comment, setComment] = useState("");
@@ -43,7 +43,7 @@ function AddComment({animeId}) {
       .then((response) => {
         setTitle("");
         setComment("");
-        window.location.reload(false);
+        setReload(prev => !prev)
         //getAllComments()
         //navigate(`/animes/${animeId}`)
       })
