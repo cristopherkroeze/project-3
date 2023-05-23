@@ -6,7 +6,6 @@ QUESTIONS/HELP FOR MONDAY:
 
 HIGH PRIORITY:
 
-1. Add to Favorites and Remove from favorites work; however, the user does not update unless you refresh
 2. Cloudinary
 
 LOW PRIORITY:

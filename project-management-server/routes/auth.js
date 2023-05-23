@@ -122,7 +122,7 @@ router.get('/:userId', (req, res, next) => {
   }
   console.log("userId:", userId)
   User.findById(userId)
-    .populate({path: 'favoriteAnimes', populate: {path: 'comments, addedBy, mainCharacter'}})
+    .populate({path: 'favoriteAnimes', populate: {path: 'comments addedBy mainCharacter'}})
     .then(user => {
       console.log("user after populate!!!!:", user)
       res.json(user)

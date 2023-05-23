@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import genres from "../animeGenres";
 import { AuthContext } from "../context/auth.context";
+import { fileChange } from "../services/fileChange";
 
 const API_URL = "http://localhost:4000";
 
@@ -32,6 +33,17 @@ function EditUserPage() {
         console.log(err)
       })
   };
+
+  const handleFileChange = (e) => {
+
+    fileChange(e)
+      .then((response) => {
+        setImg(response.data.image)
+      })
+      .catch((err) => {
+        console.log("Error while uploading the file: ", err);
+      });
+  }
 
 
   useEffect(() => {
@@ -62,10 +74,10 @@ function EditUserPage() {
           <ListGroup.Item>
           <label>Image:</label>
         <input
-          type="text"
+          type="file"
           name="img"
-          value={img}
-          onChange={(e) => setImg(e.target.value)}
+          // value={img}
+          onChange={handleFileChange}
         />
         </ListGroup.Item>
           <ListGroup.Item>

@@ -134,6 +134,7 @@ router.get('/:animeId', (req, res, next) => {
           $addToSet: {favoriteAnimes: animeId}
         },
         {new: true})
+        .populate('favoriteAnimes')
         .then((updatedUser) => {
           console.log("updated User:", updatedUser)
           res.json(updatedUser)
@@ -142,7 +143,7 @@ router.get('/:animeId', (req, res, next) => {
 
     });
 
-    // .populate({path: 'favoriteAnimes', populate: {path: 'comments addedBy mainCharacter'}})
+    // .populate({path: 'favoriteAnimes', populate: {path: 'comments addedBy mainCharacter ratedBy'}})
 
     router.post("/removeFavorite/:animeId", (req, res, next) => {
       const {animeId} = req.params;
@@ -154,6 +155,7 @@ router.get('/:animeId', (req, res, next) => {
             $pull: {favoriteAnimes: animeId}
           },
           {new: true})
+          .populate('favoriteAnimes')
           .then((updatedUser) => {
             console.log("updated User:", updatedUser)
             res.json(updatedUser)

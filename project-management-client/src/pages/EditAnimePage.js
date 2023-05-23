@@ -4,6 +4,7 @@ import axios from "axios";
 import genres from "../animeGenres"
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { fileChange } from "../services/fileChange";
 
 const API_URL = "http://localhost:4000";
 
@@ -32,6 +33,16 @@ function EditAnimePage() {
       })
   };
 
+  const handleFileChange = (e) => {
+
+    fileChange(e)
+      .then((response) => {
+        setImg(response.data.image)
+      })
+      .catch((err) => {
+        console.log("Error while uploading the file: ", err);
+      });
+  }
 
   useEffect(() => {
     axios
@@ -59,10 +70,10 @@ function EditAnimePage() {
           <ListGroup.Item>
           <label>Image:</label>
         <input
-          type="text"
+          type="file"
           name="img"
-          value={img}
-          onChange={(e) => setImg(e.target.value)}
+          // value={img}
+          onChange={handleFileChange}
         />
         </ListGroup.Item>
           <ListGroup.Item>

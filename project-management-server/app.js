@@ -12,7 +12,7 @@ var authRouter = require('./routes/auth');
 var charactersRouter = require('./routes/characters');
 var commentsRouter = require('./routes/comments');
 var usersRouter = require('./routes/users');
-
+var photoRouter = require('./routes/photo');
 var app = express();
 
 app.use(logger('dev'));
@@ -36,6 +36,7 @@ app.use('/auth', authRouter);
 app.use('/characters', charactersRouter);
 app.use('/comments', commentsRouter);
 app.use('/users', usersRouter);
+app.use('/photo', photoRouter)
 
 
 mongoose

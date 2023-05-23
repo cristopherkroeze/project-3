@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import {useNavigate} from "react-router-dom"
 import { AnimeContext } from "../context/anime.context";
+import { fileChange } from "../services/fileChange";
 
 const API_URL = "http://localhost:4000";
 
@@ -32,6 +33,17 @@ function AddCharacter() {
       .catch((error) => console.log(error));
   };
 
+  const handleFileChange = (e) => {
+
+    fileChange(e)
+      .then((response) => {
+        setImg(response.data.image)
+      })
+      .catch((err) => {
+        console.log("Error while uploading the file: ", err);
+      });
+  }
+
 
   return (
     <div className="AddCharacter">
@@ -44,10 +56,10 @@ function AddCharacter() {
           <ListGroup.Item>
           <label>Image:</label>
         <input
-          type="text"
+          type="file"
           name="img"
-          value={img}
-          onChange={(e) => setImg(e.target.value)}
+          // value={img}
+          onChange={handleFileChange}
         />
         </ListGroup.Item>
           <ListGroup.Item>

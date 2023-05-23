@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: black;
 }
 
 .LeftAlign {
@@ -20,6 +21,7 @@
     height: 100vh; 
     width: 100vw;
     background-position: center; 
+    background-color: black;
   
 
 }

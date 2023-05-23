@@ -32,7 +32,7 @@ function HomePage() {
       <Card style={{ width: "50vw" }}>
         <Card.Title>Anime Watchlist</Card.Title>
         <Card.Body>
-          Highest Rated Anime:
+          <h1>Highest Rated Anime:</h1>
           <br></br>
           {highestRated && (
             <AnimeCard

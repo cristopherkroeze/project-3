@@ -30,13 +30,12 @@ function AnimeCard({
   isProfile
 }) {
   const API_URL = "http://localhost:4000";
-  const { user, setCurrentUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
   let viewWidth = 40
   if (favoriteAnimesList) {
     viewWidth = 15
   }
-  console.log(viewWidth)
   const handleRating = (newRating) => {
     let userId = user._id;
     const requestBody = { userId, newRating };
@@ -53,7 +52,7 @@ function AnimeCard({
     
   };
 
-  const onPointerMove = (value) => console.log(value);
+  // const onPointerMove = (value) => ;
 
   const addToFavorites = () => {
     let userId = user._id;
@@ -62,7 +61,7 @@ function AnimeCard({
     axios.post(`${API_URL}/animes/addFavorite/${_id}`, requestBody)
   .then((results) => {
     console.log("ADD to favorites", results.data)
-    // setCurrentUser(results.data)
+    setUser(results.data)
     navigate(`/profile/${userId}`)
   })
   .catch((err) => {
@@ -79,7 +78,7 @@ function AnimeCard({
       .post(`${API_URL}/animes/removeFavorite/${_id}`, requestBody)
       .then((response) => {
         console.log("THIS IS AFTER REMOVAL:", response.data)
-        // setCurrentUser(response.data)
+        setUser(response.data)
         navigate(`/profile/${userId}`);
       })
       .catch((error) => console.log(error));
@@ -105,7 +104,7 @@ function AnimeCard({
           <ListGroup className="list-group-flush">
           {rating && <ListGroup.Item>Rating: {rating}</ListGroup.Item>}
           {showAllComments && (
-            <Rating onClick={handleRating} onPointerMove={onPointerMove} />
+            <Rating onClick={handleRating}  />
           )}
           <ListGroup.Item>Genre: {genre}</ListGroup.Item>
           {mainCharacter && (
